@@ -29,16 +29,7 @@ const swaggerOptions = {
       version: '1.0.0',
       description: 'A REST API for managing BYU-Idaho students and courses',
     },
-    servers: [
-      {
-        url: 'http://localhost:3000',
-        description: 'Development server',
-      },
-      {
-        url: 'https://student-api-cdu6.onrender.com',
-        description: 'Render deployment server',
-      },
-    ],
+  
   },
   apis: ['./routes/*.js'], // Path to the API docs
 };
