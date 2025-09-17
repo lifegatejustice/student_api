@@ -43,6 +43,9 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use('/api/students', studentRoutes);
 app.use('/api/courses', courseRoutes);
 
+// Root route
+
+
 // Health check route
 app.get('/health', (req, res) => {
   res.status(200).json({
@@ -51,6 +54,17 @@ app.get('/health', (req, res) => {
     timestamp: new Date().toISOString()
   });
 });
+
+// Homepage route
+app.get('/', (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: 'Welcome to the BYU-Idaho Student API',
+    docs: '/api-docs',
+    health: '/health'
+  });
+});
+
 
 // 404 handler
 app.use((req, res) => {
