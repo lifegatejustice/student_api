@@ -1,0 +1,44 @@
+[
+  {
+    "courseCode": "CSE341",
+    "title": "Web Backend Development",
+    "credits": 3,
+    "instructor": "Prof. Smith"
+  },
+  {
+    "courseCode": "CIT230",
+    "title": "Web Frontend Development",
+    "credits": 3,
+    "instructor": "Dr. Johnson"
+  },
+  {
+    "courseCode": "ENG150",
+    "title": "Writing and Reasoning Foundations",
+    "credits": 2,
+    "instructor": "Prof. Allen"
+  },
+  {
+    "courseCode": "MATH221",
+    "title": "Statistics",
+    "credits": 3,
+    "instructor": "Dr. Carter"
+  },
+  {
+    "courseCode": "REL200",
+    "title": "The Eternal Family",
+    "credits": 2,
+    "instructor": "Brother Williams"
+  },
+  {
+    "courseCode": "BIO180",
+    "title": "Introduction to Biology",
+    "credits": 4,
+    "instructor": "Dr. Green"
+  },
+  {
+    "courseCode": "HIST120",
+    "title": "American History",
+    "credits": 3,
+    "instructor": "Prof. Davis"
+  }
+]
