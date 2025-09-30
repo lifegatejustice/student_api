@@ -6,6 +6,7 @@ const {
   updateStudent,
   deleteStudent
 } = require('../controllers/studentController');
+const { protect, adminOnly } = require('../middleware/authmiddleware');
 
 const router = express.Router();
 
@@ -107,8 +108,8 @@ const router = express.Router();
  *         description: Validation error or duplicate email
  */
 router.route('/')
-  .get(getStudents)
-  .post(createStudent);
+  .get(protect, getStudents)
+  .post(protect, adminOnly, createStudent);
 
 /**
  * @swagger
@@ -190,8 +191,8 @@ router.route('/')
  *         description: Student not found
  */
 router.route('/:id')
-  .get(getStudentById)
-  .put(updateStudent)
-  .delete(deleteStudent);
+  .get(protect, getStudentById)
+  .put(protect, adminOnly, updateStudent)
+  .delete(protect, adminOnly, deleteStudent);
 
 module.exports = router;

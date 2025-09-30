@@ -6,6 +6,7 @@ const {
   updateCourse,
   deleteCourse
 } = require('../controllers/courseController');
+const { protect, adminOnly } = require('../middleware/authmiddleware');
 
 const router = express.Router();
 
@@ -89,8 +90,8 @@ const router = express.Router();
  *         description: Validation error or duplicate course code
  */
 router.route('/')
-  .get(getCourses)
-  .post(createCourse);
+  .get(protect, getCourses)
+  .post(protect, adminOnly, createCourse);
 
 /**
  * @swagger
@@ -172,8 +173,8 @@ router.route('/')
  *         description: Course not found
  */
 router.route('/:id')
-  .get(getCourseById)
-  .put(updateCourse)
-  .delete(deleteCourse);
+  .get(protect, getCourseById)
+  .put(protect, adminOnly, updateCourse)
+  .delete(protect, adminOnly, deleteCourse);
 
 module.exports = router;

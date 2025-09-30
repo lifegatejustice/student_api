@@ -1,4 +1,4 @@
-const express = require('express');
+const express = require('express'); 
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const cors = require('cors');
@@ -11,9 +11,16 @@ dotenv.config();
 // Import routes
 const studentRoutes = require('./routes/studentRoutes');
 const courseRoutes = require('./routes/courseRoutes');
+const authRoutes = require('./routes/authRoutes');
+const oauthRoutes = require('./routes/oauthRoutes');
 
 // Create Express app
 const app = express();
+
+// OAuth routes
+app.use('/', oauthRoutes);
+app.use("/api/auth", authRoutes);
+// <-- Added auth routes
 
 // Middleware
 app.use(cors());
@@ -29,7 +36,18 @@ const swaggerOptions = {
       version: '1.0.0',
       description: 'A REST API for managing BYU-Idaho students and courses',
     },
-  
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT'
+        }
+      }
+    },
+    security: [{
+      bearerAuth: []
+    }]
   },
   apis: ['./routes/*.js'], // Path to the API docs
 };
@@ -42,9 +60,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 // Routes
 app.use('/api/students', studentRoutes);
 app.use('/api/courses', courseRoutes);
-
-// Root route
-
+app.use('/api/auth', authRoutes); // <-- Mounted auth routes
 
 // Health check route
 app.get('/health', (req, res) => {
@@ -64,7 +80,6 @@ app.get('/', (req, res) => {
     health: '/health'
   });
 });
-
 
 // 404 handler
 app.use((req, res) => {
@@ -87,10 +102,7 @@ app.use((err, req, res, next) => {
 // Connect to MongoDB
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect(process.env.MONGODB_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    const conn = await mongoose.connect(process.env.MONGODB_URI);
 
     console.log(`MongoDB Connected: ${conn.connection.host}`);
   } catch (error) {
